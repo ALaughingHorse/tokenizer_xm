@@ -1,1 +1,1 @@
-from tokenizer_xm.main_class import contractions, text_tokenizer_xm
+from tokenizer_xm.tokenizer_xm import contractions, text_tokenizer_xm
