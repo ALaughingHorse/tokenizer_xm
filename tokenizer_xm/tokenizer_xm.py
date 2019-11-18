@@ -159,7 +159,7 @@ class text_tokenizer_xm:
 
         # Simple pre-processing to remove tokens
         for token in gensim.utils.simple_preprocess(self.text):
-            if token not in self.stop_words and len(token):
+            if len(token):
                 result.append(token)
                 
         if self.lemma_flag:
@@ -168,9 +168,12 @@ class text_tokenizer_xm:
         
         if self.stem_flag:
             result = [stemmer.stem(token) for token in result]
-                
-        self.processed_text = result
-        return result
+
+        # remove the stopwords at last. 
+        final_result = [x for x in result if x not in self.stop_words] 
+        
+        self.processed_text = final_result
+        return final_result
     
     def txt_pre_pros_all(self):
         """
