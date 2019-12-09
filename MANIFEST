@@ -2,5 +2,4 @@
 setup.cfg
 setup.py
 tokenizer_xm/__init__.py
-tokenizer_xm/setup.py
 tokenizer_xm/tokenizer_xm.py
