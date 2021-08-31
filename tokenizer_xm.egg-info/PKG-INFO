@@ -1,12 +1,12 @@
 Metadata-Version: 2.1
 Name: tokenizer-xm
-Version: 1.0
+Version: 1.0.1
 Summary: Tokenizing with options to include contractions, lemmatize and stem.
 Home-page: https://github.com/ALaughingHorse/tokenizer_xm
 Author: Xiao Ma
 Author-email: Marshalma0923@gmail.com
 License: MIT
-Download-URL: https://github.com/ALaughingHorse/tokenizer_xm/archive/v_10.tar.gz
+Download-URL: https://github.com/ALaughingHorse/tokenizer_xm/archive/v_101.tar.gz
 Description: 
         # Introduction 
         
