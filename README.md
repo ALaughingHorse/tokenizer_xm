@@ -15,11 +15,11 @@ pip install tokenizer_xm
 
 
 ```python
-from tokenizer_xm import text_tokenizer_xm, contractions
+from tokenizer_xm import TextPreProcessor
+import string
 
 # An example text
-example_text = "This is an amazing product! I've been using it for almost a year now and it's clearly better\
- than any other products I've used."
+example_text = "This is an amazing product! I've been using it for almost a year now and it's clearly better than any other products I've used."
 ```
 
 
@@ -30,35 +30,35 @@ print("---")
 
 print("Simple Preprocessed:")
 print("---")
-tk = text_tokenizer_xm(text = example_text, lemma_flag= False, stem_flag = False, stopwords = [])
-print(tk.txt_pre_pros())
+tk = TextPreProcessor(text=example_text, lemma_flag=False, stem_flag=False, stopwords=[])
+print(tk.process())
 print("---")
 
 print("Pre-processing with regular contractions (e.g. I've -> I have):")
 # In this package, I included a dictionary of regular contractions for your convenience
-tk = text_tokenizer_xm(text = example_text, lemma_flag= False, stem_flag = False, \
-                       contractions = contractions, stopwords=[])
-print(tk.txt_pre_pros())
+tk = TextPreProcessor(text=example_text, lemma_flag=False, stem_flag=False, \
+                      contractions=[], stopwords=[])
+print(tk.process())
 print("---")
 
 print("Pre-processing with lemmatization:")
-tk = text_tokenizer_xm(text = example_text, lemma_flag= True, stem_flag = False, \
-                       contractions = contractions, stopwords=[])
-print(tk.txt_pre_pros())
+tk = TextPreProcessor(text=example_text, lemma_flag=True, stem_flag=False, \
+                      stopwords=[])
+print(tk.process())
 print("---")
 
 print("Pre-processing with lemmatization and stemming:")
 # This package uses the SnowballStemmer from ntlk.stem. I will try to make it customizable later
-tk = text_tokenizer_xm(text = example_text, lemma_flag= True, stem_flag = True, \
-                       contractions = contractions, stopwords=[])
-print(tk.txt_pre_pros())
+tk = TextPreProcessor(text=example_text, lemma_flag=True, stem_flag=True, \
+                       stopwords=[])
+print(tk.process())
 print("---")
 
 print("Adding stop words")
 # This package uses the SnowballStemmer from ntlk.stem. I will try to make it customizable later
-tk = text_tokenizer_xm(text = example_text, lemma_flag= True, stem_flag = True, \
-                       contractions = contractions, stopwords=["this",'be',"an",'it'])
-print(tk.txt_pre_pros())
+tk = TextPreProcessor(text=example_text, lemma_flag=True, stem_flag=True, \
+                        stopwords=["this",'be',"an",'it'])
+print(tk.process())
 print("---")
 ```
 
@@ -67,38 +67,19 @@ print("---")
     ---
     Simple Preprocessed:
     ---
-    ['this', 'is', 'an', 'amazing', 'product', 've', 'been', 'using', 'it', 'for', 'almost', 'year', 'now', 'and', 'it', 'clearly', 'better', 'than', 'any', 'other', 'products', 've', 'used']
+    ['this', 'is', 'an', 'amazing', 'product', 'i', 'have', 'been', 'using', 'it', 'for', 'almost', 'a', 'year', 'now', 'and', 'it', 'has', 'it', 'is', 'clearly', 'better', 'than', 'any', 'other', 'products', 'i', 'have', 'used']
     ---
     Pre-processing with regular contractions (e.g. I've -> I have):
-    ['this', 'is', 'an', 'amazing', 'product', 'have', 'been', 'using', 'it', 'for', 'almost', 'year', 'now', 'and', 'it', 'has', 'it', 'is', 'clearly', 'better', 'than', 'any', 'other', 'products', 'have', 'used']
+    ['this', 'is', 'an', 'amazing', 'product', 'i', 'have', 'been', 'using', 'it', 'for', 'almost', 'a', 'year', 'now', 'and', 'it', 'has', 'it', 'is', 'clearly', 'better', 'than', 'any', 'other', 'products', 'i', 'have', 'used']
     ---
     Pre-processing with lemmatization:
-    ['this', 'be', 'an', 'amaze', 'product', 'have', 'be', 'use', 'it', 'for', 'almost', 'year', 'now', 'and', 'it', 'have', 'it', 'be', 'clearly', 'better', 'than', 'any', 'other', 'product', 'have', 'use']
+    ['this', 'be', 'an', 'amaze', 'product', 'i', 'have', 'be', 'use', 'it', 'for', 'almost', 'a', 'year', 'now', 'and', 'it', 'have', 'it', 'be', 'clearly', 'better', 'than', 'any', 'other', 'product', 'i', 'have', 'use']
     ---
     Pre-processing with lemmatization and stemming:
-    ['this', 'be', 'an', 'amaz', 'product', 'have', 'be', 'use', 'it', 'for', 'almost', 'year', 'now', 'and', 'it', 'have', 'it', 'be', 'clear', 'better', 'than', 'ani', 'other', 'product', 'have', 'use']
+    ['this', 'be', 'an', 'amaz', 'product', 'i', 'have', 'be', 'use', 'it', 'for', 'almost', 'a', 'year', 'now', 'and', 'it', 'have', 'it', 'be', 'clear', 'better', 'than', 'ani', 'other', 'product', 'i', 'have', 'use']
     ---
     Adding stop words
-    ['amaz', 'product', 'have', 'use', 'for', 'almost', 'year', 'now', 'and', 'have', 'clear', 'better', 'than', 'ani', 'other', 'product', 'have', 'use']
-    ---
-
-
-## Processing a list of text
-
-
-```python
-text_list = ['I am ready',"This is great","I love it"]
-tk = text_tokenizer_xm(text = text_list, lemma_flag= True, stem_flag = True, \
-                       contractions = contractions, stopwords=[])
-# Use the .txt_pre_pros_all method instead when the input is a corpus
-print(tk.txt_pre_pros_all())
-print("---")
-```
-
-    0          [be, readi]
-    1    [this, be, great]
-    2           [love, it]
-    dtype: object
+    ['amaz', 'product', 'i', 'have', 'use', 'for', 'almost', 'a', 'year', 'now', 'and', 'have', 'clear', 'better', 'than', 'ani', 'other', 'product', 'i', 'have', 'use']
     ---
 
 
@@ -118,10 +99,10 @@ Example
 
 text = "products, production, is"
 stop_words = ['product','is']
-tk = text_tokenizer_xm(text = text, lemma_flag= False, stem_flag = False, \
-                       contractions = contractions, stopwords=stop_words)
+tk = TextPreProcessor(text = text, lemma_flag= False, stem_flag = False, \
+                       stopwords=stop_words)
 # Use the .txt_pre_pros_all method instead when the input is a corpus
-print(tk.txt_pre_pros())
+print(tk.process())
 ```
 
     ['products', 'production']
@@ -129,10 +110,10 @@ print(tk.txt_pre_pros())
 
 
 ```python
-tk = text_tokenizer_xm(text = text, lemma_flag= True, stem_flag = False, \
-                       contractions = contractions, stopwords=stop_words)
+tk = TextPreProcessor(text = text, lemma_flag= True, stem_flag = False, \
+                       stopwords=stop_words)
 # Use the .txt_pre_pros_all method instead when the input is a corpus
-print(tk.txt_pre_pros())
+print(tk.process())
 ```
 
     ['production', 'be']
@@ -140,10 +121,10 @@ print(tk.txt_pre_pros())
 
 
 ```python
-tk = text_tokenizer_xm(text = text, lemma_flag= True, stem_flag = True, \
-                       contractions = contractions, stopwords=stop_words)
+tk = TextPreProcessor(text = text, lemma_flag= True, stem_flag = True, \
+                       stopwords=stop_words)
 # Use the .txt_pre_pros_all method instead when the input is a corpus
-print(tk.txt_pre_pros())
+print(tk.process())
 ```
 
     ['be']
