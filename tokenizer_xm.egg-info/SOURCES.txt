@@ -2,6 +2,7 @@ README.md
 setup.cfg
 setup.py
 tokenizer_xm/__init__.py
+tokenizer_xm/constants.py
 tokenizer_xm/tokenizer_xm.py
 tokenizer_xm.egg-info/PKG-INFO
 tokenizer_xm.egg-info/SOURCES.txt

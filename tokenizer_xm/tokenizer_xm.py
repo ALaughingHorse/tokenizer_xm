@@ -3,7 +3,7 @@ Define functions and tokenizers
 """
 import re
 import pandas as pd
-from constants import contractions
+from tokenizer_xm.constants import contractions
 from nltk.stem import WordNetLemmatizer, SnowballStemmer
 from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
